@@ -1,8 +1,9 @@
-package boozelogger;
+package boozelogger.entity;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import javax.persistence.*;
+import java.lang.*;
 
 /**
  * User: cjohannsen

@@ -1,4 +1,4 @@
-package boozelogger;
+package boozelogger.entity;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -8,27 +8,28 @@ import java.util.Date;
 /**
  * User: cjohannsen
  * Date: 4/30/14
- * Time: 10:53 AM
+ * Time: 10:56 AM
  */
 @Entity
-@Table(name="recipe_component")
-public class RecipeComponent {
+@Table(name="vessel")
+public class Vessel {
 
     private Long id;
-    private Ingredient ingredient;
-    private Double amount;
+    private String name;
+    private String description;
+    private Double volume;
     private UnitOfMeasurement unit;
     private Date createdAt;
 
-    public RecipeComponent() {
-        this(null, null, null, null, null);
+    public Vessel() {
+        this(null, null, null, null, null, null);
     }
 
-    public RecipeComponent(Long id, Ingredient ingredient, Double amount,
-                           UnitOfMeasurement unit, Date createdAt) {
+    public Vessel(Long id, String name, String description, Double volume, UnitOfMeasurement unit, Date createdAt) {
         this.id = id;
-        this.ingredient = ingredient;
-        this.amount = amount;
+        this.name = name;
+        this.description = description;
+        this.volume = volume;
         this.unit = unit;
         this.createdAt = createdAt;
     }
@@ -44,25 +45,34 @@ public class RecipeComponent {
         this.id = id;
     }
 
-    @OneToOne
-    @JoinColumn(name="ingredient_id")
+    @Column(name="name")
     @JsonProperty
-    public Ingredient getIngredient() {
-        return ingredient;
+    public String getName() {
+        return name;
     }
 
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Column(name="amount")
+    @Column(name="description")
     @JsonProperty
-    public Double getAmount() {
-        return amount;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Column(name="volume", columnDefinition = "numeric")
+    @JsonProperty
+    public Double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Double volume) {
+        this.volume = volume;
     }
 
     @Enumerated(EnumType.STRING)

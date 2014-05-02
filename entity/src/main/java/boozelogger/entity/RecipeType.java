@@ -1,4 +1,4 @@
-package boozelogger;
+package boozelogger.entity;
 
 /**
  * User: cjohannsen

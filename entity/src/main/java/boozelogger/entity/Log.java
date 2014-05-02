@@ -1,4 +1,4 @@
-package boozelogger;
+package boozelogger.entity;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonSubTypes;
@@ -6,36 +6,39 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: cjohannsen
  * Date: 4/30/14
- * Time: 10:55 AM
+ * Time: 10:54 AM
  */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @XmlRootElement
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = FermentLogEntry.class, name = "FermentLogEntry"),
-        @JsonSubTypes.Type(value = DistillationLogEntry.class, name = "DistillationLogEntry")
+        @JsonSubTypes.Type(value = FermentLog.class, name = "Type_10"),
+        @JsonSubTypes.Type(value = DistillationLog.class, name = "Type_15"),
+        @JsonSubTypes.Type(value = FinishLog.class, name = "Type_20")
 })
-public abstract class LogEntry {
+public abstract class Log {
 
     private Long id;
-    private Double temperature;
     private String notes;
+    private Vessel vessel;
     private Date createdAt;
 
-    protected LogEntry() {
+    public Log() {
         this(null, null, null, null);
     }
 
-    protected LogEntry(Long id, Double temperature, String notes, Date createdAt) {
+    public Log(Long id, String notes, Vessel vessel, Date createdAt) {
         this.id = id;
-        this.temperature = temperature;
         this.notes = notes;
+        this.vessel = vessel;
         this.createdAt = createdAt;
     }
 
@@ -50,16 +53,6 @@ public abstract class LogEntry {
         this.id = id;
     }
 
-    @Column(name="temperature", columnDefinition = "numeric")
-    @JsonProperty
-    public Double getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(Double temperature) {
-        this.temperature = temperature;
-    }
-
     @Column(name="notes")
     @JsonProperty
     public String getNotes() {
@@ -68,6 +61,17 @@ public abstract class LogEntry {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @OneToOne
+    @JoinColumn(name="vessel_id")
+    @JsonProperty
+    public Vessel getVessel() {
+        return vessel;
+    }
+
+    public void setVessel(Vessel vessel) {
+        this.vessel = vessel;
     }
 
     @Temporal(TemporalType.TIMESTAMP)

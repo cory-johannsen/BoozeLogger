@@ -1,4 +1,4 @@
-package boozelogger;
+package boozelogger.entity;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonTypeInfo;

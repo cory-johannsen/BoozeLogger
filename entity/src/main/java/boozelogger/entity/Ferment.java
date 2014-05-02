@@ -1,9 +1,10 @@
-package boozelogger;
+package boozelogger.entity;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: cjohannsen
@@ -18,7 +19,7 @@ public class Ferment {
     private String name;
     private String description;
     private Recipe recipe;
-    private Vessel vessel;
+    private List<Vessel> vessels;
     private Double originalGravity;
     private Double temperature;
     private Date startDate;
@@ -28,14 +29,14 @@ public class Ferment {
         this(null, null, null, null, null, null, null, null, null);
     }
 
-    public Ferment(Long id, String name, String description, Recipe recipe, Vessel vessel,
+    public Ferment(Long id, String name, String description, Recipe recipe, List<Vessel> vessels,
                    Double originalGravity, Double temperature, Date startDate,
                    Date createdAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.recipe = recipe;
-        this.vessel = vessel;
+        this.vessels = vessels;
         this.originalGravity = originalGravity;
         this.temperature = temperature;
         this.startDate = startDate;
@@ -84,15 +85,19 @@ public class Ferment {
         this.recipe = recipe;
     }
 
-    @OneToOne
-    @JoinColumn(name="vessel_id")
+    @OneToMany
+    @JoinTable(
+            name="ferment_vessel",
+            joinColumns={ @JoinColumn(name="ferment_id", referencedColumnName="id") },
+            inverseJoinColumns={ @JoinColumn(name="vessel_id", referencedColumnName="id") }
+    )
     @JsonProperty
-    public Vessel getVessel() {
-        return vessel;
+    public List<Vessel> getVessels() {
+        return vessels;
     }
 
-    public void setVessel(Vessel vessel) {
-        this.vessel = vessel;
+    public void setVessels(List<Vessel> vessels) {
+        this.vessels = vessels;
     }
 
     @Column(name="original_gravity", columnDefinition = "numeric")

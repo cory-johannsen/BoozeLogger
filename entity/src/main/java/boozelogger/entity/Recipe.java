@@ -1,8 +1,9 @@
-package boozelogger;
+package boozelogger.entity;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import javax.persistence.*;
+import java.lang.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
