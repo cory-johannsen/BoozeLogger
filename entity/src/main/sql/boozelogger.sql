@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS recipe (
     id serial NOT NULL PRIMARY KEY,
     name text NOT NULL,
     type text NOT NULL,
+    process_id integer NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 
@@ -63,6 +64,8 @@ CREATE TABLE IF NOT EXISTS finish (
     id serial NOT NULL PRIMARY KEY,
     name text NOT NULL,
     description text,
+    volume numeric NOT NULL,
+    unit text NOT NULL,
     ferment_id integer NOT NULL,
     distillation_id integer,
     created_at timestamp with time zone DEFAULT now() NOT NULL
@@ -149,6 +152,7 @@ CREATE TABLE IF NOT EXISTS finish_log_entry (
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 
+ALTER TABLE IF EXISTS recipe ADD CONSTRAINT process_fk FOREIGN KEY (process_id) REFERENCES process (id);
 
 ALTER TABLE IF EXISTS recipe_component ADD CONSTRAINT recipe_fk FOREIGN KEY (recipe_id) REFERENCES recipe (id);
 ALTER TABLE IF EXISTS recipe_component ADD CONSTRAINT ingredient_fk FOREIGN KEY (ingredient_id) REFERENCES ingredient (id);

@@ -15,26 +15,28 @@ import java.util.List;
 @Table(name = "distillation")
 public class Distillation {
 
-    private Long id;
+    private Integer id;
     private Ferment ferment;
     private List<Vessel> vessels;
     private Date createdAt;
 
-    public Distillation(Long id, Ferment ferment, List<Vessel> vessels, Date createdAt) {
+    public Distillation() {
+    }
+
+    public Distillation(Integer id, Ferment ferment, List<Vessel> vessels, Date createdAt) {
         this.id = id;
         this.ferment = ferment;
         this.vessels = vessels;
         this.createdAt = createdAt;
     }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

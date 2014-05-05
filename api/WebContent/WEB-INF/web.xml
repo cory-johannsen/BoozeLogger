@@ -15,9 +15,10 @@
 
   <filter-mapping>
     <filter-name>guiceFilter</filter-name>
-    <url-pattern>/service/*</url-pattern>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
+
   <listener>
-    <listener-class>unification.configuration.GuiceServletInjector</listener-class>
+    <listener-class>boozelogger.configuration.BoozeLoggerServletInjector</listener-class>
 </listener>
 </web-app>

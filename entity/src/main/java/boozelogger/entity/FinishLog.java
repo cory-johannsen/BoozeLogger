@@ -29,7 +29,7 @@ public class FinishLog extends Log {
         this(null, null, null, null, new ArrayList<FinishLogEntry>());
     }
 
-    public FinishLog(Long id, String notes, Vessel vessel, Date createdAt, List<FinishLogEntry> entries) {
+    public FinishLog(Integer id, String notes, Vessel vessel, Date createdAt, List<FinishLogEntry> entries) {
         super(id, notes, vessel, createdAt);
         this.entries = entries;
     }

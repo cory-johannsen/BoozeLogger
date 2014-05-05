@@ -14,7 +14,7 @@ import java.lang.*;
 @Table(name="process_step")
 public class ProcessStep {
 
-    private Long id;
+    private Integer id;
     private String name;
     private String description;
     private Process process;
@@ -23,7 +23,7 @@ public class ProcessStep {
         this(null, null, null, null);
     }
 
-    public ProcessStep(Long id, String name, String description, Process process) {
+    public ProcessStep(Integer id, String name, String description, Process process) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -33,14 +33,16 @@ public class ProcessStep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
+    @Column(name="name")
+    @JsonProperty
     public String getName() {
         return name;
     }
@@ -49,6 +51,8 @@ public class ProcessStep {
         this.name = name;
     }
 
+    @Column(name="description")
+    @JsonProperty
     public String getDescription() {
         return description;
     }
@@ -57,6 +61,8 @@ public class ProcessStep {
         this.description = description;
     }
 
+    @ManyToOne
+    @JoinColumn(name="process_id")
     public Process getProcess() {
         return process;
     }

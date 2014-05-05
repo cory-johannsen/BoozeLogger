@@ -1,9 +1,13 @@
 package boozelogger.configuration;
 
+import boozelogger.entity.dao.IRecipeDao;
+import boozelogger.entity.dao.jpa.JpaRecipeDao;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import unification.configuration.GrandUnificationModule;
+import unification.exceptionmapper.DaoExceptionMapper;
+import unification.exceptionmapper.EntityNotFoundExceptionMapper;
 
 import java.util.Map;
 
@@ -12,7 +16,18 @@ import java.util.Map;
  * Date: 5/2/14
  * Time: 10:14 AM
  */
-public class GuiceJerseyServletModule extends GrandUnificationModule {
+public class BoozeLoggerModule extends GrandUnificationModule {
+
+    @Override
+    protected void bindApplicationInterfaces() {
+        bind(IRecipeDao.class).to(JpaRecipeDao.class);
+    }
+
+    @Override
+    protected void bindApplicationExceptionMappers() {
+        bind(EntityNotFoundExceptionMapper.class);
+        bind(DaoExceptionMapper.class);
+    }
 
     @Override
     protected Map<String, String> configureApplicationParameters(Map<String, String> parameters) {

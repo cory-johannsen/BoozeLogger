@@ -1,6 +1,7 @@
-package boozelogger.entity.dao;
+package boozelogger.entity.dao.jpa;
 
 import boozelogger.entity.Recipe;
+import boozelogger.entity.dao.IRecipeDao;
 import unification.entity.dao.jpa.JpaDataAccessObject;
 import unification.entity.dao.exception.DaoException;
 import unification.entity.dao.exception.EntityNotFoundException;
@@ -21,7 +22,7 @@ import java.util.Map;
  * Date: 5/2/14
  * Time: 1:35 PM
  */
-public class JpaRecipeDao extends JpaDataAccessObject<Long,Recipe> {
+public class JpaRecipeDao extends JpaDataAccessObject<Long,Recipe> implements IRecipeDao {
     @Log
     org.slf4j.Logger mLogger;
 

@@ -28,7 +28,7 @@ public class DistillationLogEntry extends LogEntry {
         this(null, null, null, null, null, null, null);
     }
 
-    public DistillationLogEntry(Long id, Double temperature, String notes, Date createdAt, Double abv, Double volume, UnitOfMeasurement unit) {
+    public DistillationLogEntry(Integer id, Double temperature, String notes, Date createdAt, Double abv, Double volume, UnitOfMeasurement unit) {
         super(id, temperature, notes, createdAt);
         this.abv = abv;
         this.volume = volume;
@@ -45,7 +45,7 @@ public class DistillationLogEntry extends LogEntry {
         this.abv = abv;
     }
 
-    @Column(name = "abv", columnDefinition = "numeric")
+    @Column(name = "volume", columnDefinition = "numeric")
     @JsonProperty
     public Double getVolume() {
         return volume;

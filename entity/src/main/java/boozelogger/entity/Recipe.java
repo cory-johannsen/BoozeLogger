@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name="recipe")
 public class Recipe {
 
-    private Long id;
+    private Integer id;
     private String name;
     private RecipeType type;
     private Date createdAt;
@@ -28,7 +28,7 @@ public class Recipe {
         this(null, null, null, null, new ArrayList<RecipeComponent>(), null);
     }
 
-    public Recipe(Long id, String name, RecipeType type, Date createdAt, List<RecipeComponent> components, Process process) {
+    public Recipe(Integer id, String name, RecipeType type, Date createdAt, List<RecipeComponent> components, Process process) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -40,11 +40,11 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

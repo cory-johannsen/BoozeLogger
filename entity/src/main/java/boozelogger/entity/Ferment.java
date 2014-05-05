@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name="ferment")
 public class Ferment {
 
-    private Long id;
+    private Integer id;
     private String name;
     private String description;
     private Recipe recipe;
@@ -29,7 +29,7 @@ public class Ferment {
         this(null, null, null, null, null, null, null, null, null);
     }
 
-    public Ferment(Long id, String name, String description, Recipe recipe, List<Vessel> vessels,
+    public Ferment(Integer id, String name, String description, Recipe recipe, List<Vessel> vessels,
                    Double originalGravity, Double temperature, Date startDate,
                    Date createdAt) {
         this.id = id;
@@ -46,11 +46,11 @@ public class Ferment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

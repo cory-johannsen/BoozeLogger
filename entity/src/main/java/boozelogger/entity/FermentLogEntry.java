@@ -26,7 +26,7 @@ public class FermentLogEntry extends LogEntry {
         this(null, null, null, null, null);
     }
 
-    public FermentLogEntry(Long id, Double temperature, String notes, Date createdAt, Double specificGravity) {
+    public FermentLogEntry(Integer id, Double temperature, String notes, Date createdAt, Double specificGravity) {
         super(id, temperature, notes, createdAt);
         this.specificGravity = specificGravity;
     }

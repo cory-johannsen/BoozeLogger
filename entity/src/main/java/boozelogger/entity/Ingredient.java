@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name="ingredient")
 public class Ingredient {
 
-    private Long id;
+    private Integer id;
     private String name;
     private Date createdAt;
 
@@ -22,7 +22,7 @@ public class Ingredient {
         this(null, null, null);
     }
 
-    public Ingredient(Long id, String name, Date createdAt) {
+    public Ingredient(Integer id, String name, Date createdAt) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -31,11 +31,11 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

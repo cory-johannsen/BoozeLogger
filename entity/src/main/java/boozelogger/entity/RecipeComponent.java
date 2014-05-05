@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name="recipe_component")
 public class RecipeComponent {
 
-    private Long id;
+    private Integer id;
     private Ingredient ingredient;
     private Double amount;
     private UnitOfMeasurement unit;
@@ -24,7 +24,7 @@ public class RecipeComponent {
         this(null, null, null, null, null);
     }
 
-    public RecipeComponent(Long id, Ingredient ingredient, Double amount,
+    public RecipeComponent(Integer id, Ingredient ingredient, Double amount,
                            UnitOfMeasurement unit, Date createdAt) {
         this.id = id;
         this.ingredient = ingredient;
@@ -36,11 +36,11 @@ public class RecipeComponent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,7 +55,7 @@ public class RecipeComponent {
         this.ingredient = ingredient;
     }
 
-    @Column(name="amount")
+    @Column(name="amount", columnDefinition = "numeric")
     @JsonProperty
     public Double getAmount() {
         return amount;

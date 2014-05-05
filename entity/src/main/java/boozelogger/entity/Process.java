@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="process")
 public class Process {
 
-    private Long id;
+    private Integer id;
     private String name;
     private List<ProcessStep> steps;
     private Date createdAt;
@@ -25,7 +25,7 @@ public class Process {
         this(null, null, new ArrayList<ProcessStep>(), null);
     }
 
-    public Process(Long id, String name, List<ProcessStep> steps, Date createdAt) {
+    public Process(Integer id, String name, List<ProcessStep> steps, Date createdAt) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -35,11 +35,11 @@ public class Process {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

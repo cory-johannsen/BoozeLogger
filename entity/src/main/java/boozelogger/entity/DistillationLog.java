@@ -29,7 +29,7 @@ public class DistillationLog extends Log {
         this(null, null, null, null, new ArrayList<DistillationLogEntry>());
     }
 
-    public DistillationLog(Long id, String notes, Vessel vessel, Date createdAt, List<DistillationLogEntry> entries) {
+    public DistillationLog(Integer id, String notes, Vessel vessel, Date createdAt, List<DistillationLogEntry> entries) {
         super(id, notes, vessel, createdAt);
         this.entries = entries;
     }

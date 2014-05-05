@@ -27,7 +27,7 @@ public class FinishLogEntry extends LogEntry {
         this(null, null, null, null, null, null);
     }
 
-    public FinishLogEntry(Long id, Double temperature, String notes, Date createdAt, String flavor, String color) {
+    public FinishLogEntry(Integer id, Double temperature, String notes, Date createdAt, String flavor, String color) {
         super(id, temperature, notes, createdAt);
         this.flavor = flavor;
         this.color = color;

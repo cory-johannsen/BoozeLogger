@@ -26,7 +26,7 @@ import java.util.List;
 })
 public abstract class Log {
 
-    private Long id;
+    private Integer id;
     private String notes;
     private Vessel vessel;
     private Date createdAt;
@@ -35,7 +35,7 @@ public abstract class Log {
         this(null, null, null, null);
     }
 
-    public Log(Long id, String notes, Vessel vessel, Date createdAt) {
+    public Log(Integer id, String notes, Vessel vessel, Date createdAt) {
         this.id = id;
         this.notes = notes;
         this.vessel = vessel;
@@ -45,11 +45,11 @@ public abstract class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -25,7 +25,7 @@ public class FermentLog extends Log {
         this(null, null, null, null, new ArrayList<FermentLogEntry>());
     }
 
-    public FermentLog(Long id, String notes, Vessel vessel, Date createdAt, List<FermentLogEntry> entries) {
+    public FermentLog(Integer id, String notes, Vessel vessel, Date createdAt, List<FermentLogEntry> entries) {
         super(id, notes, vessel, createdAt);
         this.entries = entries;
     }
