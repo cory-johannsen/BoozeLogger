@@ -13,7 +13,7 @@ import java.util.Map;
  * Date: 5/5/14
  * Time: 1:09 PM
  */
-public interface IRecipeDao extends DataAccessObject<Long, Recipe> {
+public interface IRecipeDao extends DataAccessObject<Integer, Recipe> {
 
     List<Recipe> loadByParameters(Map map) throws EntityNotFoundException, DaoException;
 

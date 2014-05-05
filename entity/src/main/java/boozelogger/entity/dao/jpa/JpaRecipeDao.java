@@ -22,7 +22,7 @@ import java.util.Map;
  * Date: 5/2/14
  * Time: 1:35 PM
  */
-public class JpaRecipeDao extends JpaDataAccessObject<Long,Recipe> implements IRecipeDao {
+public class JpaRecipeDao extends JpaDataAccessObject<Integer,Recipe> implements IRecipeDao {
     @Log
     org.slf4j.Logger mLogger;
 
