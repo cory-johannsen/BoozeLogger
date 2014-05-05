@@ -18,6 +18,25 @@
         <github.global.server>github</github.global.server>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>GrandUnification-mvn-repo</id>
+            <url>https://raw.githubusercontent.com/cory-johannsen/GrandUnification/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -49,13 +68,20 @@
                     <version>2.1</version>
                 </plugin>
                 <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.1</version>
+                    <configuration>
+                        <altDeploymentRepository>internal.repo::default::file://${user.dir}/mvn-repo</altDeploymentRepository>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>com.github.github</groupId>
                     <artifactId>site-maven-plugin</artifactId>
                     <version>0.8</version>
                     <configuration>
                         <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
                         <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
-                        <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+                        <outputDirectory>${user.dir}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
                         <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
                         <includes><include>**/*</include></includes>
                         <repositoryName>BoozeLogger</repositoryName>      <!-- github repo name -->
@@ -74,29 +100,17 @@
             </plugins>
         </pluginManagement>
     </build>
-    <distributionManagement>
-        <repository>
-            <id>internal.repo</id>
-            <name>Temporary Staging Repository</name>
-            <url>file://${project.build.directory}/mvn-repo</url>
-        </repository>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <id>GrandUnification-mvn-repo</id>
-            <url>https://raw.github.com/cory-johannsen/GrandUnification/mvn-repo/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.unification</groupId>
+                <artifactId>grand-unification</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.unification</groupId>
                 <artifactId>unification-core</artifactId>
-                <version>1.0.0-SNAPSHOT<version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.unification</groupId>
@@ -104,14 +118,14 @@
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>1.4</version>
-            </dependency>
-            <dependency>
                 <groupId>org.unification</groupId>
                 <artifactId>unification-api</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.4</version>
             </dependency>
             <dependency>
                 <groupId>com.google.inject</groupId>
