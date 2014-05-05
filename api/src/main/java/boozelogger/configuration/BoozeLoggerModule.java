@@ -46,7 +46,7 @@ public class BoozeLoggerModule extends GrandUnificationModule {
 
         // wire up our custom @RolesBanned resource filter annotation.
         parameters.put(PackagesResourceConfig.PROPERTY_RESOURCE_FILTER_FACTORIES,
-                "com.vendscreen.security.RolesBannedResourceFilterFactory");
+                "unification.security.RolesBannedResourceFilterFactory");
 
         // Install logging filters to log all incoming and outgoing traffic.
         // DEVELOPMENT ONLY -- NOT FOR PRODUCTION USE
