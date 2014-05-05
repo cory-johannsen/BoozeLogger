@@ -1,6 +1,10 @@
 package boozelogger.configuration;
 
+import boozelogger.entity.dao.IIngredientDao;
+import boozelogger.entity.dao.IRecipeComponentDao;
 import boozelogger.entity.dao.IRecipeDao;
+import boozelogger.entity.dao.jpa.JpaIngredientDao;
+import boozelogger.entity.dao.jpa.JpaRecipeComponentDao;
 import boozelogger.entity.dao.jpa.JpaRecipeDao;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
@@ -20,7 +24,9 @@ public class BoozeLoggerModule extends GrandUnificationModule {
 
     @Override
     protected void bindApplicationInterfaces() {
+        bind(IIngredientDao.class).to(JpaIngredientDao.class);
         bind(IRecipeDao.class).to(JpaRecipeDao.class);
+        bind(IRecipeComponentDao.class).to(JpaRecipeComponentDao.class);
     }
 
     @Override
