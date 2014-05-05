@@ -7,6 +7,7 @@ import unification.entity.dao.exception.EntityNotFoundException;
 import com.google.inject.persist.Transactional;
 import unification.configuration.Log;
 
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
