@@ -1,0 +1,10 @@
+-Dhibernate.dialect=org.hibernate.dialect.PostgreSQL82Dialect
+-Djavax.persistence.jdbc.driver=org.postgresql.Driver
+-Djavax.persistence.jdbc.url=jdbc:postgresql://localhost:5432/boozelogger
+-Djavax.persistence.jdbc.user=boozelogger
+-Djavax.persistence.jdbc.password=boozelogger
+-Djpa.persistence.unit=boozelogger
+-DLDAP_URL=ldap://localhost:389
+-DLDAP_ADMIN_DN="cn=admin,dc=unification,dc=org"
+-DLDAP_ADMIN_PW=secret
+-DAPI_VERSION=1.0

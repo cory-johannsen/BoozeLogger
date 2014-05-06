@@ -1,7 +1,7 @@
 package boozelogger.api;
 
-import boozelogger.entity.Ingredient;
-import boozelogger.entity.dao.IIngredientDao;
+import boozelogger.entity.Vessel;
+import boozelogger.entity.dao.IVesselDao;
 import com.google.inject.Inject;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
@@ -18,18 +18,19 @@ import java.util.List;
 /**
  * User: cjohannsen
  * Date: 5/5/14
- * Time: 3:41 PM
+ * Time: 1:01 PM
  */
-@Path("/{api_version}/ingredient")
-public class IngredientResource {
+@Path("/{api_version}/vessel")
+public class VesselResource {
+
     @Log
     Logger logger;
 
-    private IIngredientDao ingredientDao;
+    private IVesselDao vesselDao;
 
     @Inject
-    public IngredientResource(IIngredientDao ingredientDao) {
-        this.ingredientDao = ingredientDao;
+    public VesselResource(IVesselDao vesselDao) {
+        this.vesselDao = vesselDao;
     }
 
     /**
@@ -41,23 +42,23 @@ public class IngredientResource {
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public List<Ingredient> getAll(@PathParam("api_version") String apiVersion)
+    public List<Vessel> getAll(@PathParam("api_version") String apiVersion)
             throws EntityNotFoundException, DaoException {
-        logger.info("GET request (API version " + apiVersion + ") for Ingredient list.");
-        return ingredientDao.loadAll();
+        logger.info("GET request (API version " + apiVersion + ") for Vessel list.");
+        return vesselDao.loadAll();
     }
 
     @GET
-    @Path("/{ingredient_id}")
+    @Path("/{vessel_id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public Ingredient getById(@PathParam("api_version") String apiVersion,
-                          @PathParam("ingredient_id") Integer ingredientId)
+    public Vessel getById(@PathParam("api_version") String apiVersion,
+                          @PathParam("vessel_id") Integer vesselId)
             throws EntityNotFoundException, DaoException {
-        logger.info("GET request (API version " + apiVersion + ") for Ingredient with ID " + ingredientId);
-        return ingredientDao.loadById(ingredientId);
+        logger.info("GET request (API version " + apiVersion + ") for Vessel with ID " + vesselId);
+        return vesselDao.loadById(vesselId);
     }
 
     @POST
@@ -66,11 +67,11 @@ public class IngredientResource {
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public Ingredient create(@PathParam("api_version") String apiVersion,
-                         Ingredient ingredient)
+    public Vessel create(@PathParam("api_version") String apiVersion,
+                         Vessel vessel)
             throws DaoException {
-        logger.info("POST request (API version " + apiVersion + ") to create Ingredient " + ingredient);
-        return ingredientDao.create(ingredient);
+        logger.info("POST request (API version " + apiVersion + ") to create Vessel " + vessel);
+        return vesselDao.create(vessel);
     }
 
     @PUT
@@ -79,11 +80,11 @@ public class IngredientResource {
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public Ingredient update(@PathParam("api_version") String apiVersion,
-                         Ingredient ingredient)
+    public Vessel update(@PathParam("api_version") String apiVersion,
+                         Vessel vessel)
             throws DaoException {
-        logger.info("PUT request (API version " + apiVersion + ") to update Ingredient " + ingredient);
-        return ingredientDao.store(ingredient);
+        logger.info("PUT request (API version " + apiVersion + ") to update Vessel " + vessel);
+        return vesselDao.store(vessel);
     }
 
     @DELETE
@@ -92,10 +93,10 @@ public class IngredientResource {
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public Ingredient remove(@PathParam("api_version") String apiVersion,
-                         Ingredient ingredient)
+    public Vessel remove(@PathParam("api_version") String apiVersion,
+                         Vessel vessel)
             throws DaoException {
-        logger.info("DELETE request (API version " + apiVersion + ") to remove Ingredient " + ingredient);
-        return ingredientDao.remove(ingredient);
+        logger.info("DELETE request (API version " + apiVersion + ") to remove Vessel " + vessel);
+        return vesselDao.remove(vessel);
     }
 }

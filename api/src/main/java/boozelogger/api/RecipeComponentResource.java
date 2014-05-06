@@ -5,11 +5,14 @@ import boozelogger.entity.RecipeComponent;
 import boozelogger.entity.dao.IRecipeComponentDao;
 import boozelogger.entity.dao.IRecipeDao;
 import com.google.inject.Inject;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import unification.configuration.Log;
 import unification.entity.dao.exception.DaoException;
 import unification.entity.dao.exception.EntityNotFoundException;
+import unification.security.RolesBanned;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.List;
  * Date: 5/5/14
  * Time: 1:01 PM
  */
-@Path("/{api_version}/recipecomponent")
+@Path("/{api_version}/recipeComponent")
 public class RecipeComponentResource {
 
     @Log
@@ -38,6 +41,9 @@ public class RecipeComponentResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RequiresAuthentication
+    @RolesAllowed({"administrator", "developer", "api_user"})
+    @RolesBanned({"blacklist"})
     public List<RecipeComponent> getAll(@PathParam("api_version") String apiVersion)
             throws EntityNotFoundException, DaoException {
         logger.info("GET request (API version " + apiVersion + ") for RecipeComponent list.");
@@ -47,6 +53,9 @@ public class RecipeComponentResource {
     @GET
     @Path("/{recipecomponent_id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RequiresAuthentication
+    @RolesAllowed({"administrator", "developer", "api_user"})
+    @RolesBanned({"blacklist"})
     public RecipeComponent getById(@PathParam("api_version") String apiVersion,
                           @PathParam("recipecomponent_id") Integer recipeComponentId)
             throws EntityNotFoundException, DaoException {
@@ -57,6 +66,9 @@ public class RecipeComponentResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RequiresAuthentication
+    @RolesAllowed({"administrator", "developer", "api_user"})
+    @RolesBanned({"blacklist"})
     public RecipeComponent create(@PathParam("api_version") String apiVersion,
                                   RecipeComponent recipeComponent)
             throws DaoException {
@@ -67,6 +79,9 @@ public class RecipeComponentResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RequiresAuthentication
+    @RolesAllowed({"administrator", "developer", "api_user"})
+    @RolesBanned({"blacklist"})
     public RecipeComponent update(@PathParam("api_version") String apiVersion,
                                   RecipeComponent recipeComponent)
             throws DaoException {
@@ -77,6 +92,9 @@ public class RecipeComponentResource {
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RequiresAuthentication
+    @RolesAllowed({"administrator", "developer", "api_user"})
+    @RolesBanned({"blacklist"})
     public RecipeComponent remove(@PathParam("api_version") String apiVersion,
                          RecipeComponent recipeComponent)
             throws DaoException {

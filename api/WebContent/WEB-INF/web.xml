@@ -20,5 +20,5 @@
 
   <listener>
     <listener-class>boozelogger.configuration.BoozeLoggerServletInjector</listener-class>
-</listener>
+  </listener>
 </web-app>

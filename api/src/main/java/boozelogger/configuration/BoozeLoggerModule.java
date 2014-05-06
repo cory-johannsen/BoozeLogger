@@ -1,19 +1,17 @@
 package boozelogger.configuration;
 
-import boozelogger.entity.dao.IIngredientDao;
-import boozelogger.entity.dao.IRecipeComponentDao;
-import boozelogger.entity.dao.IRecipeDao;
-import boozelogger.entity.dao.jpa.JpaIngredientDao;
-import boozelogger.entity.dao.jpa.JpaRecipeComponentDao;
-import boozelogger.entity.dao.jpa.JpaRecipeDao;
+import boozelogger.entity.dao.*;
+import boozelogger.entity.dao.jpa.*;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import unification.configuration.GrandUnificationModule;
 import unification.exceptionmapper.DaoExceptionMapper;
 import unification.exceptionmapper.EntityNotFoundExceptionMapper;
+import unification.exceptionmapper.UnauthenticatedExceptionMapper;
 
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * User: cjohannsen
@@ -24,15 +22,28 @@ public class BoozeLoggerModule extends GrandUnificationModule {
 
     @Override
     protected void bindApplicationInterfaces() {
+        bind(IDistillationDao.class).to(JpaDistillationDao.class);
+        bind(IDistillationLogDao.class).to(JpaDistillationLogDao.class);
+        bind(IDistillationLogEntryDao.class).to(JpaDistillationLogEntryDao.class);
+        bind(IFermentDao.class).to(JpaFermentDao.class);
+        bind(IFermentLogDao.class).to(JpaFermentLogDao.class);
+        bind(IFermentLogEntryDao.class).to(JpaFermentLogEntryDao.class);
+        bind(IFinishDao.class).to(JpaFinishDao.class);
+        bind(IFinishLogDao.class).to(JpaFinishLogDao.class);
+        bind(IFinishLogEntryDao.class).to(JpaFinishLogEntryDao.class);
         bind(IIngredientDao.class).to(JpaIngredientDao.class);
+        bind(IProcessDao.class).to(JpaProcessDao.class);
+        bind(IProcessStepDao.class).to(JpaProcessStepDao.class);
         bind(IRecipeDao.class).to(JpaRecipeDao.class);
         bind(IRecipeComponentDao.class).to(JpaRecipeComponentDao.class);
+        bind(IVesselDao.class).to(JpaVesselDao.class);
     }
 
     @Override
     protected void bindApplicationExceptionMappers() {
         bind(EntityNotFoundExceptionMapper.class);
         bind(DaoExceptionMapper.class);
+        bind(UnauthenticatedExceptionMapper.class);
     }
 
     @Override
@@ -56,5 +67,28 @@ public class BoozeLoggerModule extends GrandUnificationModule {
                 "com.sun.jersey.api.container.filter.LoggingFilter");
 
         return parameters;
+    }
+
+    protected Properties bindApplicationNamedProperties(Properties properties) {
+        // API Version
+        String apiVersion = System.getProperty(GrandUnificationModule.API_VERSION);
+
+        // LDAP properties
+        String ldapUrl = System.getProperty(GrandUnificationModule.LDAP_URL);
+        String ldapAdminDN = System.getProperty(GrandUnificationModule.LDAP_ADMIN_DN);
+        String ldapAdminPw  = System.getProperty(GrandUnificationModule.LDAP_ADMIN_PW);
+
+
+        System.out.println("Using API_VERSION: " + apiVersion);
+        System.out.println("Using LDAP_URL: " + ldapUrl);
+        System.out.println("Using LDAP_ADMIN_DN: " + ldapAdminDN);
+        System.out.println("Using LDAP_ADMIN_PW: " + ldapAdminPw);
+
+        properties.put(GrandUnificationModule.API_VERSION, apiVersion);
+        properties.put(GrandUnificationModule.LDAP_URL, ldapUrl);
+        properties.put(GrandUnificationModule.LDAP_ADMIN_DN, ldapAdminDN);
+        properties.put(GrandUnificationModule.LDAP_ADMIN_PW, ldapAdminPw);
+
+        return properties;
     }
 }

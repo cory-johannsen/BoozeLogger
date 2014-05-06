@@ -1,7 +1,7 @@
 package boozelogger.api;
 
-import boozelogger.entity.Ingredient;
-import boozelogger.entity.dao.IIngredientDao;
+import boozelogger.entity.Distillation;
+import boozelogger.entity.dao.IDistillationDao;
 import com.google.inject.Inject;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
@@ -18,18 +18,19 @@ import java.util.List;
 /**
  * User: cjohannsen
  * Date: 5/5/14
- * Time: 3:41 PM
+ * Time: 1:01 PM
  */
-@Path("/{api_version}/ingredient")
-public class IngredientResource {
+@Path("/{api_version}/distillation")
+public class DistillationResource {
+
     @Log
     Logger logger;
 
-    private IIngredientDao ingredientDao;
+    private IDistillationDao distillationDao;
 
     @Inject
-    public IngredientResource(IIngredientDao ingredientDao) {
-        this.ingredientDao = ingredientDao;
+    public DistillationResource(IDistillationDao distillationDao) {
+        this.distillationDao = distillationDao;
     }
 
     /**
@@ -41,23 +42,23 @@ public class IngredientResource {
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public List<Ingredient> getAll(@PathParam("api_version") String apiVersion)
+    public List<Distillation> getAll(@PathParam("api_version") String apiVersion)
             throws EntityNotFoundException, DaoException {
-        logger.info("GET request (API version " + apiVersion + ") for Ingredient list.");
-        return ingredientDao.loadAll();
+        logger.info("GET request (API version " + apiVersion + ") for Distillation list.");
+        return distillationDao.loadAll();
     }
 
     @GET
-    @Path("/{ingredient_id}")
+    @Path("/{distillation_id}")
     @Produces(MediaType.APPLICATION_JSON)
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public Ingredient getById(@PathParam("api_version") String apiVersion,
-                          @PathParam("ingredient_id") Integer ingredientId)
+    public Distillation getById(@PathParam("api_version") String apiVersion,
+                          @PathParam("distillation_id") Integer distillationId)
             throws EntityNotFoundException, DaoException {
-        logger.info("GET request (API version " + apiVersion + ") for Ingredient with ID " + ingredientId);
-        return ingredientDao.loadById(ingredientId);
+        logger.info("GET request (API version " + apiVersion + ") for Distillation with ID " + distillationId);
+        return distillationDao.loadById(distillationId);
     }
 
     @POST
@@ -66,11 +67,11 @@ public class IngredientResource {
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public Ingredient create(@PathParam("api_version") String apiVersion,
-                         Ingredient ingredient)
+    public Distillation create(@PathParam("api_version") String apiVersion,
+                         Distillation distillation)
             throws DaoException {
-        logger.info("POST request (API version " + apiVersion + ") to create Ingredient " + ingredient);
-        return ingredientDao.create(ingredient);
+        logger.info("POST request (API version " + apiVersion + ") to create Distillation " + distillation);
+        return distillationDao.create(distillation);
     }
 
     @PUT
@@ -79,11 +80,11 @@ public class IngredientResource {
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public Ingredient update(@PathParam("api_version") String apiVersion,
-                         Ingredient ingredient)
+    public Distillation update(@PathParam("api_version") String apiVersion,
+                         Distillation distillation)
             throws DaoException {
-        logger.info("PUT request (API version " + apiVersion + ") to update Ingredient " + ingredient);
-        return ingredientDao.store(ingredient);
+        logger.info("PUT request (API version " + apiVersion + ") to update Distillation " + distillation);
+        return distillationDao.store(distillation);
     }
 
     @DELETE
@@ -92,10 +93,10 @@ public class IngredientResource {
     @RequiresAuthentication
     @RolesAllowed({"administrator", "developer", "api_user"})
     @RolesBanned({"blacklist"})
-    public Ingredient remove(@PathParam("api_version") String apiVersion,
-                         Ingredient ingredient)
+    public Distillation remove(@PathParam("api_version") String apiVersion,
+                         Distillation distillation)
             throws DaoException {
-        logger.info("DELETE request (API version " + apiVersion + ") to remove Ingredient " + ingredient);
-        return ingredientDao.remove(ingredient);
+        logger.info("DELETE request (API version " + apiVersion + ") to remove Distillation " + distillation);
+        return distillationDao.remove(distillation);
     }
 }
