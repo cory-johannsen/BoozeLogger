@@ -1,9 +1,11 @@
 package boozelogger.configuration;
 
 import com.google.inject.Inject;
+import com.google.inject.Key;
 import com.google.inject.name.Named;
 import unification.configuration.GrandUnificationModule;
 import unification.configuration.LDAPShiroConfigurationModule;
+import unification.security.SharedSecretAuthenticatingFilter;
 
 import javax.servlet.ServletContext;
 
@@ -24,9 +26,16 @@ public class BoozeLoggerShiroConfigurationModule extends LDAPShiroConfigurationM
     @SuppressWarnings("unchecked")
     @Override
     protected void configureFilterChains() {
+        Key<SharedSecretAuthenticatingFilter> SHARED_SECRET = Key.get(SharedSecretAuthenticatingFilter.class);
+
         // API Version
         String apiVersion = System.getProperty(GrandUnificationModule.API_VERSION);
-        addFilterChain("/" + apiVersion + "/status", ANON);
-        addFilterChain("/" + apiVersion + "*", AUTHC_BASIC);
+        System.out.println("LDAPShiroConfigurationModule.configureFilterChains  - using API version " + apiVersion);
+
+        // Filters are evaluated in the order in which they are defined so the least specific should be added as the last filter
+        // chain. E.g. /** will match any url so  it should be the last added to the the filters collection.
+
+        addFilterChain("/" + apiVersion + "/*", NO_SESSION_CREATION, SHARED_SECRET);
+        addFilterChain("/**", ANON);
     }
 }
