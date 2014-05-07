@@ -27,15 +27,15 @@
     </build>
         <dependencies>
             <dependency>
-                <groupId>unification</groupId>
+                <groupId>javaunification.org</groupId>
                 <artifactId>unification-core</artifactId>
             </dependency>
             <dependency>
-                <groupId>unification</groupId>
+                <groupId>javaunification.org</groupId>
                 <artifactId>unification-entity</artifactId>
             </dependency>
             <dependency>
-                <groupId>unification</groupId>
+                <groupId>javaunification.org</groupId>
                 <artifactId>unification-api</artifactId>
             </dependency>
             <dependency>
