@@ -1,10 +1,8 @@
 package boozelogger.configuration;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import org.apache.shiro.guice.web.ShiroWebModule;
 import unification.configuration.GrandUnificationModule;
 import unification.configuration.GuiceServletInjector;
-import unification.configuration.LDAPShiroConfigurationModule;
 
 import javax.servlet.ServletContext;
 
@@ -20,7 +18,7 @@ public class BoozeLoggerServletInjector extends GuiceServletInjector {
         return new BoozeLoggerModule();
     }
 
-    protected LDAPShiroConfigurationModule createShiroConfigurationModule(ServletContext context) {
-        return new BoozeLoggerShiroConfigurationModule(context);
+    protected ShiroWebModule createShiroConfigurationModule(ServletContext context) {
+        return new BoozeLoggerNoAuthShiroConfigurationModule(context);
     }
 }

@@ -1,0 +1,36 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http auto-config="true">
+        <intercept-url pattern="/WEB-INF" access="ROLE_USER" />
+        <form-login
+                login-page="/login"
+                default-target-url="/index.jsp"
+                authentication-failure-url="/login?error"
+                username-parameter="username"
+                password-parameter="password" />
+        <logout logout-success-url="/login?logout" />
+        <!-- enable csrf protection -->
+        <csrf/>
+    </http>
+
+    <ldap-server url="ldap://localhost:384"
+                 manager-dn="cn=admin,dc-javaunification,dc=org"
+                 manager-password="unification" />
+
+    <authentication-manager>
+        <ldap-authentication-provider
+                user-search-filter="uid={0}"
+                user-search-base="ou=users,dc=javaunification,dc=org"
+                group-search-filter="(&amp;(objectclass=group)(uniqueMember={0}))"
+                group-search-base="ou=roles" />
+                <!-- user-context-mapper-ref="customUserContextMapper" -->
+
+    </authentication-manager>
+
+</beans:beans>

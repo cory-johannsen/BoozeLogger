@@ -26,6 +26,13 @@ public class RecipeController {
         //recipes.add(new Recipe(1, "Recipe 1", RecipeType.WHISKEY_MASH, new Date(), null, null));
         //recipes.add(new Recipe(2, "Recipe 2", RecipeType.WINE_MUST, new Date(), null, null));
 		model.addAttribute("recipes", recipes);
-		return "recipe";
+		return "recipeList";
 	}
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String getCreateForm(ModelMap model) {
+        Recipe recipe = new Recipe();
+        model.addAttribute("recipe", recipe);
+        return "recipeCreate";
+    }
 }
