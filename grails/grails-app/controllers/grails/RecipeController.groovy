@@ -10,8 +10,6 @@ import static groovyx.net.http.ContentType.JSON
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import groovyx.net.http.HTTPBuilder
-import static groovyx.net.http.Method.GET
-import static groovyx.net.http.Method.POST
 
 @Transactional(readOnly = true)
 class RecipeController {
@@ -38,8 +36,20 @@ class RecipeController {
         respond recipeList, model:[recipeInstanceCount: recipeList.size()]
     }
 
-    def show(Recipe recipeInstance) {
-        respond recipeInstance
+    def show(Integer id) {
+        def http = new HTTPBuilder('http://localhost:8081/api/1.0/')
+        http.auth.basic "boozelogger","unification"
+
+        http.get( path: 'recipe/' + id ) { response,json ->
+
+            def recipeInstance = new Recipe()
+            recipeInstance.id = recipeObject.get("id")
+            recipeInstance.name = recipeObject.get("name")
+            recipeInstance.type = recipeObject.get("type")
+            recipeInstance.createdAt = new Date(recipeObject.get("createdAt"))
+
+            respond recipeInstance
+        }
     }
 
     def create() {
@@ -69,6 +79,10 @@ class RecipeController {
             response.success = { resp, json ->
                 println "POST response: ${resp.statusLine}"
                 println json
+                recipeInstance.id = json['id'];
+                recipeInstance.name = json['name']
+                recipeInstance.type = json['type']
+                recipeInstance.createdAt = new Date(json['createdAt'])
             }
         }
 

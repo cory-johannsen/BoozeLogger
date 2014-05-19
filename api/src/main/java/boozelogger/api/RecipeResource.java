@@ -41,9 +41,9 @@ public class RecipeResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    //@RequiresAuthentication
-    //@RolesAllowed({"administrator", "developer", "api_user"})
-    //@RolesBanned({"blacklist"})
+    @RequiresAuthentication
+    @RolesAllowed({"administrator", "developer", "api_user"})
+    @RolesBanned({"blacklist"})
     public List<Recipe> getAll(@PathParam("api_version") String apiVersion)
             throws EntityNotFoundException, DaoException {
         logger.info("GET request (API version " + apiVersion + ") for Recipe list.");
