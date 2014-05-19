@@ -22,7 +22,7 @@ import java.util.List;
  * Date: 5/5/14
  * Time: 1:01 PM
  */
-@Path("/api/{api_version}/recipe")
+@Path("/{api_version}/recipe")
 public class RecipeResource {
 
     @Log

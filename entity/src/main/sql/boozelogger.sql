@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS recipe (
     id serial NOT NULL PRIMARY KEY,
     name text NOT NULL,
     type text NOT NULL,
-    process_id integer NOT NULL,
+    process_id integer,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 

@@ -64,7 +64,7 @@ class RecipeController {
             body = [ 'id' : recipeInstance.id,
                     'name': recipeInstance.name,
                     'type': recipeInstance.type,
-                    'createdAt' : recipeInstance.createdAt]
+                    'createdAt' : recipeInstance.createdAt.getTime()]
 
             response.success = { resp, json ->
                 println "POST response: ${resp.statusLine}"
