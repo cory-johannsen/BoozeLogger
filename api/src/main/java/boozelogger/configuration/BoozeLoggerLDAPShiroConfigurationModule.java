@@ -3,6 +3,8 @@ package boozelogger.configuration;
 import com.google.inject.Inject;
 import com.google.inject.Key;
 import com.google.inject.name.Named;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import unification.configuration.GrandUnificationModule;
 import unification.configuration.LDAPShiroConfigurationModule;
 import unification.security.SharedSecretAuthenticatingFilter;
@@ -15,6 +17,8 @@ import javax.servlet.ServletContext;
  * Time: 11:42 AM
  */
 public class BoozeLoggerLDAPShiroConfigurationModule extends LDAPShiroConfigurationModule {
+
+    private static final Logger log = LoggerFactory.getLogger(BoozeLoggerLDAPShiroConfigurationModule.class);
 
     public BoozeLoggerLDAPShiroConfigurationModule(ServletContext servletContext) {
         super(servletContext);
@@ -30,7 +34,7 @@ public class BoozeLoggerLDAPShiroConfigurationModule extends LDAPShiroConfigurat
 
         // API Version
         String apiVersion = System.getProperty(GrandUnificationModule.API_VERSION);
-        System.out.println("LDAPShiroConfigurationModule.configureFilterChains  - using API version " + apiVersion);
+        log.debug("configureFilterChains  - using API version " + apiVersion);
 
         // Filters are evaluated in the order in which they are defined so the least specific should be added as the last filter
         // chain. E.g. /** will match any url so  it should be the last added to the the filters collection.

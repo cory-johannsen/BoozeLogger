@@ -19,6 +19,6 @@ public class BoozeLoggerServletInjector extends GuiceServletInjector {
     }
 
     protected ShiroWebModule createShiroConfigurationModule(ServletContext context) {
-        return new BoozeLoggerNoAuthShiroConfigurationModule(context);
+        return new BoozeLoggerIniAuthShiroConfigurationModule(context);
     }
 }

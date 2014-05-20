@@ -3,6 +3,9 @@ package grails
 import groovyx.net.http.Method
 import net.sf.json.JSONArray
 import net.sf.json.JSONObject
+import org.apache.http.HttpRequest
+import org.apache.http.HttpRequestInterceptor
+import org.apache.http.protocol.HttpContext
 
 import javax.ws.rs.POST
 
@@ -14,22 +17,35 @@ import groovyx.net.http.HTTPBuilder
 @Transactional(readOnly = true)
 class RecipeController {
 
+    static def api = new HTTPBuilder('http://localhost:8081/api/1.0/recipe/')
+    static {
+        api.client.addRequestInterceptor(new HttpRequestInterceptor() {
+            void process(HttpRequest httpRequest, HttpContext httpContext) {
+                httpRequest.addHeader('Authorization', 'Basic ' + 'administrator:unification'.bytes.encodeBase64().toString())
+            }
+        })
+        api.handler.failure = { resp ->
+            println "Unexpected failure: ${resp.statusLine}"
+        }
+    }
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        def http = new HTTPBuilder('http://localhost:8081/api/1.0/')
-        http.auth.basic "boozelogger","unification"
         def recipeList = new ArrayList<Recipe>()
 
-        http.get( path: 'recipe' ) { response,json ->
-            for (recipeObject in json) {
-                def recipe = new Recipe()
-                recipe.id = recipeObject.get("id")
-                recipe.name = recipeObject.get("name")
-                recipe.type = recipeObject.get("type")
-                recipe.createdAt = new Date(recipeObject.get("createdAt"))
-                recipeList.add(recipe)
+        api.request(groovyx.net.http.Method.GET, JSON) {
+
+            response.success = { response,json ->
+                for (recipeObject in json) {
+                    def recipe = new Recipe()
+                    recipe.id = recipeObject.get("id")
+                    recipe.name = recipeObject.get("name")
+                    recipe.type = recipeObject.get("type")
+                    recipe.createdAt = new Date(recipeObject.get("createdAt"))
+                    recipeList.add(recipe)
+                }
             }
         }
 
@@ -37,18 +53,19 @@ class RecipeController {
     }
 
     def show(Integer id) {
-        def http = new HTTPBuilder('http://localhost:8081/api/1.0/')
-        http.auth.basic "boozelogger","unification"
+        api.request(path: '/' + id, groovyx.net.http.Method.GET, JSON) {
 
-        http.get( path: 'recipe/' + id ) { response,json ->
+            response.success = { response,json ->
+                def recipeInstance = new Recipe()
+                recipeInstance.id = recipeObject.get("id")
+                recipeInstance.name = recipeObject.get("name")
+                recipeInstance.type = recipeObject.get("type")
+                recipeInstance.createdAt = new Date(recipeObject.get("createdAt"))
 
-            def recipeInstance = new Recipe()
-            recipeInstance.id = recipeObject.get("id")
-            recipeInstance.name = recipeObject.get("name")
-            recipeInstance.type = recipeObject.get("type")
-            recipeInstance.createdAt = new Date(recipeObject.get("createdAt"))
+                respond recipeInstance
+            }
 
-            respond recipeInstance
+
         }
     }
 
@@ -68,9 +85,7 @@ class RecipeController {
             return
         }
 
-        def http = new HTTPBuilder('http://localhost:8081/api/1.0/recipe')
-        http.auth.basic "boozelogger","unification"
-        http.request(groovyx.net.http.Method.POST, JSON) { req ->
+        api.request(groovyx.net.http.Method.POST, JSON) { req ->
             body = [ 'id' : recipeInstance.id,
                     'name': recipeInstance.name,
                     'type': recipeInstance.type,

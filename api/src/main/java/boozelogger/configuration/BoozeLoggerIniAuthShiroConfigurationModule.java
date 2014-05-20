@@ -3,7 +3,7 @@ package boozelogger.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import unification.configuration.GrandUnificationModule;
-import unification.configuration.LDAPShiroConfigurationModule;
+import unification.configuration.IniShiroConfigurationModule;
 import unification.configuration.NoAuthShiroConfigurationModule;
 
 import javax.servlet.ServletContext;
@@ -13,10 +13,11 @@ import javax.servlet.ServletContext;
  * Date: 5/6/14
  * Time: 11:42 AM
  */
-public class BoozeLoggerNoAuthShiroConfigurationModule extends NoAuthShiroConfigurationModule {
-    private static final Logger log = LoggerFactory.getLogger(BoozeLoggerNoAuthShiroConfigurationModule.class);
+public class BoozeLoggerIniAuthShiroConfigurationModule extends IniShiroConfigurationModule {
 
-    public BoozeLoggerNoAuthShiroConfigurationModule(ServletContext servletContext) {
+    private static final Logger log = LoggerFactory.getLogger(BoozeLoggerIniAuthShiroConfigurationModule.class);
+
+    public BoozeLoggerIniAuthShiroConfigurationModule(ServletContext servletContext) {
         super(servletContext);
     }
 

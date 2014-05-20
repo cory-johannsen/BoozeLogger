@@ -5,6 +5,8 @@ import boozelogger.entity.dao.jpa.*;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import unification.configuration.GrandUnificationModule;
 import unification.exceptionmapper.DaoExceptionMapper;
 import unification.exceptionmapper.EntityNotFoundExceptionMapper;
@@ -19,6 +21,8 @@ import java.util.Properties;
  * Time: 10:14 AM
  */
 public class BoozeLoggerModule extends GrandUnificationModule {
+
+    private static final Logger log = LoggerFactory.getLogger(BoozeLoggerModule.class);
 
     @Override
     protected void bindApplicationInterfaces() {
@@ -79,10 +83,10 @@ public class BoozeLoggerModule extends GrandUnificationModule {
         String ldapAdminPw  = System.getProperty(GrandUnificationModule.LDAP_ADMIN_PW);
 
 
-        System.out.println("Using API_VERSION: " + apiVersion);
-        System.out.println("Using LDAP_URL: " + ldapUrl);
-        System.out.println("Using LDAP_ADMIN_DN: " + ldapAdminDN);
-        System.out.println("Using LDAP_ADMIN_PW: " + ldapAdminPw);
+        log.debug("Using API_VERSION: " + apiVersion);
+        log.debug("Using LDAP_URL: " + ldapUrl);
+        log.debug("Using LDAP_ADMIN_DN: " + ldapAdminDN);
+        log.debug("Using LDAP_ADMIN_PW: " + ldapAdminPw);
 
         properties.put(GrandUnificationModule.API_VERSION, apiVersion);
         properties.put(GrandUnificationModule.LDAP_URL, ldapUrl);

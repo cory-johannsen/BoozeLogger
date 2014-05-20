@@ -4,6 +4,7 @@ import boozelogger.entity.Recipe;
 import boozelogger.entity.dao.IRecipeDao;
 import com.google.inject.Inject;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import unification.configuration.Log;
 
 import javax.annotation.security.RolesAllowed;
